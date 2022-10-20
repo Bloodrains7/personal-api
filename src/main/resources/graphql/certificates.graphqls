@@ -1,0 +1,19 @@
+type Tag {
+    id: ID
+    title: String!
+}
+
+type Certificate {
+    id: ID
+    title: String!
+    company: String!
+    duration: String!
+    type: String
+    parent:Boolean
+    url: String
+    tags: [Tag]
+}
+
+type Query {
+    certificates: [Certificate]!
+}
