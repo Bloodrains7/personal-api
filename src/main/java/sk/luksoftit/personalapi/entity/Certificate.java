@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "certificate")
 public class Certificate {
 
     @Id
@@ -18,14 +19,20 @@ public class Certificate {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "certificate")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
     @Column(name = "duration")
     private String duration;
 
-    @OneToMany(mappedBy = "certificate")
-    private List<CertificationType> type;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "cert_type",
+            joinColumns = @JoinColumn(name = "cert_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id")
+    )
+    private List<CertificationType> types;
 
     @Column(name = "parents")
     private Boolean parent;
@@ -33,6 +40,11 @@ public class Certificate {
     @Column(name = "url")
     private String url;
 
-    @OneToMany(mappedBy = "certificate")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name ="cert_tag",
+            joinColumns = @JoinColumn(name = "cert_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags;
 }

@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "certificate_type")
 public class CertificationType {
 
     @Id
@@ -18,8 +20,7 @@ public class CertificationType {
     @Column(name = "type")
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "certificate_id", nullable = false)
-    private Certificate certificate;
+    @ManyToMany(mappedBy = "types")
+    private List<Certificate> certificates;
 
 }

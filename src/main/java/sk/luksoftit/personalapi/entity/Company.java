@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "company")
 public class Company {
 
     @Id
@@ -16,9 +18,9 @@ public class Company {
     private Long id;
 
     @Column(name = "name")
-    private String companyName;
+    private String name;
 
-    @OneToOne(mappedBy = "company")
-    private Certificate certificate;
+    @OneToMany(mappedBy = "company")
+    private List<Certificate> certificates;
 
 }
